@@ -1,4 +1,4 @@
-﻿{
+{
   "userSecretsId": "aspnet-TravelBuddy-be6e6350-7f76-48e9-a466-f05b601e660e",
 
   "dependencies": {
@@ -41,10 +41,12 @@
       "version": "1.0.0-preview2-final",
       "type": "build"
     },
-    "Microsoft.VisualStudio.Web.CodeGenerators.Mvc":  {
+    "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": {
       "version": "1.0.0-preview2-final",
       "type": "build"
-    }
+    },
+    "TravelBuddyDatabase": "1.0.0-*",
+    "TravelBuddyServices": "1.0.0-*"
   },
 
   "tools": {

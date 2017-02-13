@@ -9,10 +9,11 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using TravelBuddy.Data;
-using TravelBuddy.Entities;
+using TravelBuddyDatabase;
+using TravelBuddyDatabase.Entities;
 using TravelBuddy.Models;
-using TravelBuddy.Services;
+using TravelBuddyServices;
+using TravelBuddyServices.Communication;
 
 namespace TravelBuddy
 {
@@ -50,7 +51,7 @@ namespace TravelBuddy
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
 
-            services.AddIdentity<ApplicationUser, IdentityRole>()
+            services.AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
 

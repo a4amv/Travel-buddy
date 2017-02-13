@@ -1,9 +1,9 @@
 ﻿@using System.Collections.Generic
 @using Microsoft.AspNetCore.Http
 @using Microsoft.AspNetCore.Http.Authentication
-@using TravelBuddy.Entities
+@using TravelBuddyDatabase.Entities
 @model LoginViewModel
-@inject SignInManager<ApplicationUser> SignInManager
+@inject SignInManager<User> SignInManager
 
 @{
     ViewData["Title"] = "Log in";

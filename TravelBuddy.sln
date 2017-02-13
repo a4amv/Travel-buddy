@@ -13,6 +13,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TravelBuddy", "src\TravelBuddy\TravelBuddy.xproj", "{70F3A11A-C93A-446C-8AC9-270101928535}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TravelBuddyServices", "src\TravelBuddyServices\TravelBuddyServices.xproj", "{86A9FD31-A816-4DAA-945B-1A841A927E09}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TravelBuddyDatabase", "src\TravelBuddyDatabase\TravelBuddyDatabase.xproj", "{88549258-EACE-407C-B263-6B6536EC05A5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,11 +27,21 @@ Global
 		{70F3A11A-C93A-446C-8AC9-270101928535}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70F3A11A-C93A-446C-8AC9-270101928535}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70F3A11A-C93A-446C-8AC9-270101928535}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86A9FD31-A816-4DAA-945B-1A841A927E09}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86A9FD31-A816-4DAA-945B-1A841A927E09}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86A9FD31-A816-4DAA-945B-1A841A927E09}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86A9FD31-A816-4DAA-945B-1A841A927E09}.Release|Any CPU.Build.0 = Release|Any CPU
+		{88549258-EACE-407C-B263-6B6536EC05A5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{88549258-EACE-407C-B263-6B6536EC05A5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{88549258-EACE-407C-B263-6B6536EC05A5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{88549258-EACE-407C-B263-6B6536EC05A5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{70F3A11A-C93A-446C-8AC9-270101928535} = {BFD834C5-92EF-4AF0-9289-BB50CD3CBD7E}
+		{86A9FD31-A816-4DAA-945B-1A841A927E09} = {BFD834C5-92EF-4AF0-9289-BB50CD3CBD7E}
+		{88549258-EACE-407C-B263-6B6536EC05A5} = {BFD834C5-92EF-4AF0-9289-BB50CD3CBD7E}
 	EndGlobalSection
 EndGlobal
