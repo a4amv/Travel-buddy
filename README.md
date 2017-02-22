@@ -1,2 +1,2 @@
-# Travel-buddy budu první?
+# Travel-buddy
 travel buddy
