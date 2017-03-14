@@ -1,0 +1,36 @@
+@model TravelBuddy.Models.Advertisment.AdvertismentViewModel
+
+<div>
+    <h4>Advertisment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Location)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Location)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Since)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Since)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Until)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Until)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Details)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Details)
+        </dd>
+    </dl>
+</div>
+<div>
+    @Html.ActionLink("Edit", "Edit", new {  id = Model.Id },new { @class= "btn btn-default" }) 
+    <a class="btn btn-default" asp-action="Index">Back to List</a>
+</div>

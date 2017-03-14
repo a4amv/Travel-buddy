@@ -5,7 +5,7 @@ using System.Text;
 
 namespace TravelBuddyDatabase
 {
-    class ApplicationDbContextFactory
+    public class ApplicationDbContextFactory
     {
         private readonly string _connectionString;
 
