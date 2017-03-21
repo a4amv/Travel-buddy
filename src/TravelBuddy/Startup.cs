@@ -56,6 +56,13 @@ namespace TravelBuddy
                 .AddDefaultTokenProviders();
 
             services.AddMvc();
+            //todo Add NuGet AspNetCore.Session
+            /*services.AddSession(options =>
+            {
+                // Set a short timeout for easy testing.
+                options.IdleTimeout = TimeSpan.FromSeconds(30);
+                options.CookieHttpOnly = true;
+            });*/
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
@@ -88,7 +95,7 @@ namespace TravelBuddy
 
             app.UseIdentity();
 
-            // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
+           // app.UseSession();
 
             app.UseMvc(routes =>
             {

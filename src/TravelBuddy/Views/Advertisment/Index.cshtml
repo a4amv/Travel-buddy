@@ -1,8 +1,15 @@
+@using System.Threading.Tasks
+@*using TravelBuddy.Controllers*@
 @model IEnumerable<TravelBuddy.Models.Advertisment.AdvertismentViewModel>
 
+@*if (ViewData[AdvertismentController.MessageKey] != null)
+    {
+        <text><div class="text-danger">@ViewData[AdvertismentController.MessageKey]</div></text>
+    }*@
 <p>
     <a class="btn btn-default" asp-action="Create">Create New</a>
 </p>
+
 <table class="table">
     <thead>
         <tr>
