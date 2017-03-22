@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
+using TravelBuddyDatabase.Enums;
 
 namespace TravelBuddy.Models.ManageViewModels
 {
@@ -23,8 +25,16 @@ namespace TravelBuddy.Models.ManageViewModels
 
         public string Surname { get; set; }
 
-        public int Age { get; set; }
-
         public string Country { get; set; }
+
+        public string City { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime Birthday { get; set; }
+
+        public GenderType Gender { get; set; }
+
+        public string Skype { get; set; }
+
     }
 }

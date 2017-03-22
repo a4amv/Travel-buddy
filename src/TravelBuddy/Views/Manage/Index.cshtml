@@ -1,4 +1,5 @@
 ﻿@model IndexViewModel
+@using TravelBuddyDatabase.Enums;
 @{
     ViewData["Title"] = "Manage your account";
 }
@@ -29,13 +30,6 @@
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="Age" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
-                    <input asp-for="Age" class="form-control" />
-                    <span asp-validation-for="Age" class="text-danger" />
-                </div>
-            </div>
-            <div class="form-group">
                 <label asp-for="Country" class="col-md-2 control-label"></label>
                 <div class="col-md-10">
                     <input asp-for="Country" class="form-control" />
@@ -43,10 +37,40 @@
                 </div>
             </div>
             <div class="form-group">
+                <label asp-for="City" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="City" class="form-control" />
+                    <span asp-validation-for="City" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Birthday" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Birthday" class="form-control" />
+                    <span asp-validation-for="Birthday" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gender" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <select asp-for="Gender" class="form-control" asp-items="Html.GetEnumSelectList<GenderType>()"></select>
+
+                    <span asp-validation-for="Gender" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Skype" class="col-md-2 control-label"></label>
+                <div class="col-md-10">
+                    <input asp-for="Skype" class="form-control" />
+                    <span asp-validation-for="Skype" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Save" class="btn btn-default" />
                 </div>
             </div>
+            
             <input asp-for="Id" type="hidden"/>
         </div>
     </form>

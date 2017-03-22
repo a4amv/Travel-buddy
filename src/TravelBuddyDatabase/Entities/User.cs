@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using System;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using TravelBuddyDatabase.Enums;
 
 namespace TravelBuddyDatabase.Entities
 {
@@ -9,8 +11,13 @@ namespace TravelBuddyDatabase.Entities
 
         public string Surname { get; set; }
 
-        public int Age { get; set; }
-
         public string Country { get; set; }
+        public string City { get; set; }
+        
+        public DateTime Birthday { get; set; }
+
+        public GenderType Gender { get; set; }
+
+        public string Skype { get; set; }
     }
 }

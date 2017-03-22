@@ -65,8 +65,11 @@ namespace TravelBuddy.Controllers
                 BrowserRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user),
                 Name = user.Name,
                 Surname = user.Surname,
-                Age = user.Age, 
-                Country = user.Country
+                Country = user.Country,
+                Birthday = user.Birthday,
+                City = user.City,
+                Skype = user.Skype,
+                Gender = user.Gender
             
             };
             return View(model);
@@ -78,9 +81,12 @@ namespace TravelBuddy.Controllers
             var entity = await _userManager.FindByIdAsync(model.Id);
             entity.Name = model.Name;
             entity.Surname = model.Surname;
-            entity.Age = model.Age;
             entity.Country = model.Country;
-            await _userManager.UpdateAsync(entity);
+            entity.City = model.City;
+            entity.Birthday = model.Birthday;
+            entity.Gender = model.Gender;
+            entity.Skype = model.Skype;
+        await _userManager.UpdateAsync(entity);
             return RedirectToAction("Index");
         }
 
