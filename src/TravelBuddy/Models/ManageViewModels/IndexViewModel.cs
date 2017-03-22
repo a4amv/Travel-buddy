@@ -8,6 +8,7 @@ namespace TravelBuddy.Models.ManageViewModels
 {
     public class IndexViewModel
     {
+        public string Id { get; set; }
         public bool HasPassword { get; set; }
 
         public IList<UserLoginInfo> Logins { get; set; }
@@ -17,5 +18,13 @@ namespace TravelBuddy.Models.ManageViewModels
         public bool TwoFactor { get; set; }
 
         public bool BrowserRemembered { get; set; }
+
+        public string Name { get; set; }
+
+        public string Surname { get; set; }
+
+        public int Age { get; set; }
+
+        public string Country { get; set; }
     }
 }
