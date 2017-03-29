@@ -1,4 +1,4 @@
-@using Microsoft.AspNetCore.Identity
+﻿@using Microsoft.AspNetCore.Identity
 @using TravelBuddy.Models
 @using TravelBuddyDatabase.Entities
 
@@ -10,7 +10,7 @@
     <form asp-area="" asp-controller="Account" asp-action="LogOff" method="post" id="logoutForm" class="navbar-right">
         <ul class="nav navbar-nav navbar-right">
             <li>
-                <a asp-area="" asp-controller="" asp-action="Index" class="glyphicon glyphicon-envelope" title="Messaginggfggfggg"></a>
+                <a asp-area="" asp-controller="Messages" asp-action="Index" class="glyphicon glyphicon-envelope" title="Messages"></a>
             </li>
             <li>
                 <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
