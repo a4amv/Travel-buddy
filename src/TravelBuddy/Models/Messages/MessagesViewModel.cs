@@ -8,6 +8,6 @@ namespace TravelBuddy.Models.Messages
 {
     public class MessagesViewModel
     {
-        
+        //public IList<User> Users { get; set; }
     }
 }

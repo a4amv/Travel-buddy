@@ -12,5 +12,10 @@ namespace TravelBuddy.Controllers
         {
             return View();
         }
+
+        public ActionResult AllConversations()
+        {
+            return View();
+        }
     }
 }

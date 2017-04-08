@@ -1,0 +1,32 @@
+@model TravelBuddy.Models.Messages.MessagesViewModel
+
+@{
+    ViewData["Title"] = "All conversations";
+}
+
+<h2>All your conversations</h2>
+
+<form asp-action="AllConversations">
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>Search for conversation:</h4>
+                <div class="input-group">
+                    <input type="text" style="max-width: 100%;" class="form-control" placeholder="username@mail.com">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> </button>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+</form>
+
+<div>
+    <a asp-action="Index">Take me back to Messages page please!</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
