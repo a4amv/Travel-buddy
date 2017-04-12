@@ -1,5 +1,11 @@
-@model TravelBuddy.Models.Messages.MessagesViewModel
-
+@using System.Threading.Tasks
+@using Microsoft.AspNetCore.Identity
+@using TravelBuddy.Models
+@using TravelBuddyDatabase.Entities
+@*using TravelBuddy.Controllers*@
+@model IEnumerable<TravelBuddy.Models.Messages.MessagesViewModel>
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
 @{
     ViewData["Title"] = "Messages";
 }
@@ -22,40 +28,37 @@
     <div class="form-horizontal">
         <div class="row">
             <div class="col-md-4">
-                <h4>Recent conversations:</h4>
+                <h4>Recent conversations:</h4> <!-- RECENT CONVERSATION -->
                 <div class="list-group" style="margin-bottom: 15px;">
-                    <a href="#" class="list-group-item">Iris West<span class="badge">5</span></a>
-                    <a href="#" class="list-group-item">Rick Grimes<span class="badge">2</span></a>
-                    <a href="#" class="list-group-item active">
-                        Saul McGill
-                    </a>
-                    <a href="#" class="list-group-item">Oliver Queen</a>
-                    <a href="#" class="list-group-item">Arya Stark</a>                    
+                   @foreach (var item in Model) 
+                   {
+                            <a href="#@Html.DisplayFor(modelItem => item.SentFrom)" class="list-group-item">
+                                @Html.DisplayFor(modelItem => item.SentFrom)
+                            <span class="badge">@Html.DisplayFor(modelItem => item.IsRead)</span></a>
+                   }
+                                                                     
                 </div>
                 <p class="text-right"><a asp-action="AllConversations">Show all...</a></p>
-                <h4>Start new conversation:</h4>
+
+                <h4>Start new conversation:</h4> <!-- NEW CONVERSATION -->
                 <div class="input-group">
                     <input type="text" style="max-width: 100%;" class="form-control" placeholder="username@mail.com">
                     <span class="input-group-btn">
                         <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
                     </span>
                 </div>
+
             </div>
 
             <div class="panel panel-primary col-md-8" style="padding:0px 0px 0px 0px; ">
                 <!-- Default panel contents -->
                 <div class="panel-heading">Saul McGill</div>
                 <div class="panel-body">
+
                     <p class="text-left">Hi buddy, how are things? :)<br><span class="small text-muted">10.1.2017 10:30</span></p>
+
                     <p class="text-right" data-toggle="tooltip" title="10.1.2017 10:30">Pretty freaking awesome dude! xD</p>
-                    <p class="text-left">I'm glad to hear that! :)</p>
-                    <p class="text-right">You wanna meet up today?</p>
-                    <p class="text-left">Yeah sure!</p>
-                    <p class="text-left">What about Trafalgar square at 11 PM?</p>
-                    <p class="text-right">Sounds good to me :)</p>
-                    <p class="text-left">OK, I'm looking forward to see you there</p>
-                    <p class="text-left"> 737 725 152 - my phone number in case of any troubles...</p>
-                    <p class="text-right">Ok, see you there! ;)</p>
+                   
                 </div>
                 <!-- List group -->
                 <ul class="list-group">

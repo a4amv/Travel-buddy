@@ -24,5 +24,7 @@ namespace TravelBuddyDatabase
         }
 
         public DbSet<Advertisment> Advertisment { get; set; }
+
+        public DbSet<Messages> Messages { get; set; }
     }
 }
