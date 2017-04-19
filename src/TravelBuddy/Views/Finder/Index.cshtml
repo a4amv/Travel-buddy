@@ -1,0 +1,35 @@
+﻿@using System.Threading.Tasks
+@using TravelBuddyDatabase
+@model IEnumerable<TravelBuddy.Models.FinderViewModel.FinderViewModel>
+
+
+@using (Html.BeginForm())
+{
+    <p>
+        <center><strong>Location: </strong> @Html.TextBox("searchString")
+        <button type="submit" class="btn">Search</button> </center> 
+    </p>
+}
+<br />
+<br />
+<br />
+<div class="container-fluid">
+    @foreach (var item in Model)
+    {
+
+        <div class="col-sm-3 col-md-3 col-lg-4">
+           
+            <img src="~/images/banner2.jpg" class="img-circle" alt="Cinque Terre" width="100" height="100" />
+            <p><i class="glyphicon glyphicon-star"></i></p>
+            <p><strong>Nickname:</strong> @Html.DisplayFor(modelItem => item.Name)</p>
+            <p><strong>City</strong> @Html.DisplayFor(modelItem => item.city)</p>
+            <p><button type="button" class="btn">Show Profile</button></p>
+            
+        </div>
+
+
+
+
+
+    }
+</div>  
