@@ -3,7 +3,7 @@
 @using TravelBuddy.Models
 @using TravelBuddyDatabase.Entities
 @*using TravelBuddy.Controllers*@
-@model IEnumerable<TravelBuddy.Models.Messages.MessagesViewModel>
+@model IEnumerable<string>
 @inject SignInManager<User> SignInManager
 @inject UserManager<User> UserManager
 @{
@@ -32,9 +32,9 @@
                 <div class="list-group" style="margin-bottom: 15px;">
                    @foreach (var item in Model) 
                    {
-                            <a href="#@Html.DisplayFor(modelItem => item.SentFrom)" class="list-group-item">
-                                @Html.DisplayFor(modelItem => item.SentFrom)
-                            <span class="badge">@Html.DisplayFor(modelItem => item.IsRead)</span></a>
+                            <div class="list-group-item conversation" data-contact="@item">
+                                @Html.DisplayFor(modelItem => item)
+                            <span class="badge">1</span></div>
                    }
                                                                      
                 </div>
@@ -80,4 +80,21 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+<script>
+    $(function () {
+        $(".conversation").click(function () {
+            var anchor = $(this);
+            var contact = anchor.data("contact");
+            $.ajax(@Url.Action("Conversation")) // udìlat metodu v controlleru
+            .success(function (data) {
+                //pres element muzu pracovat s daty(ktere si poslu v JASONu)
+            })
+            .error(function (data) {
+                //zobrazeni nejake chybove hlasky
+            })
+            ;
+            });
+    })
+
+    </script>
 }

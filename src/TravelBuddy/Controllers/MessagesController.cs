@@ -25,15 +25,16 @@ namespace TravelBuddy.Controllers
         {
             using (var db = DbFactory.Create())
             {
-                var data = db.Messages.Select(a => new MessagesViewModel()
-                {
-                    Id = a.Id,
-                    SentFrom = a.SentFrom,
-                    SentTo = a.SentTo,
-                    IsRead = a.IsRead,
-                    ThisMessage = a.ThisMessage,
-                    MessageTime = a.MessageTime
-                }).ToList();
+                //var data = db.Messages.Select(a => a.SentFrom != User.Identity.Name ? a.SentFrom : a.SentTo)
+                //    .Where(b => b == User.Identity.Name )
+                //              .Distinct()
+                //              .ToList();
+
+                var data = db.Messages.Select(a => new { SentFrom = a.SentFrom, SentTo = a.SentTo })
+                    .Where(b => b.SentFrom == User.Identity.Name || b.SentTo == User.Identity.Name)
+                    .Select(a => a.SentFrom != User.Identity.Name ? a.SentFrom : a.SentTo)
+                              .Distinct()
+                              .ToList();
                 return View(data);
             }
         }
@@ -51,7 +52,7 @@ namespace TravelBuddy.Controllers
                     IsRead = a.IsRead,
                     ThisMessage = a.ThisMessage,
                     MessageTime = a.MessageTime
-                }).ToList();
+                }).Where( a => a.SentTo == User.Identity.Name) .ToList();
                 return View(data);
             }
         }
