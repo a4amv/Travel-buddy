@@ -57,13 +57,37 @@ namespace TravelBuddy.Controllers
             }
             var model = new IndexViewModel
             {
+                Id = user.Id,
                 HasPassword = await _userManager.HasPasswordAsync(user),
                 PhoneNumber = await _userManager.GetPhoneNumberAsync(user),
                 TwoFactor = await _userManager.GetTwoFactorEnabledAsync(user),
                 Logins = await _userManager.GetLoginsAsync(user),
-                BrowserRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user)
+                BrowserRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user),
+                Name = user.Name,
+                Surname = user.Surname,
+                Country = user.Country,
+                Birthday = user.Birthday,
+                City = user.City,
+                Skype = user.Skype,
+                Gender = user.Gender
+            
             };
             return View(model);
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Index(IndexViewModel model)
+        {
+            var entity = await _userManager.FindByIdAsync(model.Id);
+            entity.Name = model.Name;
+            entity.Surname = model.Surname;
+            entity.Country = model.Country;
+            entity.City = model.City;
+            entity.Birthday = model.Birthday;
+            entity.Gender = model.Gender;
+            entity.Skype = model.Skype;
+        await _userManager.UpdateAsync(entity);
+            return RedirectToAction("Index");
         }
 
         //

@@ -8,9 +8,10 @@ using TravelBuddyDatabase;
 namespace TravelBuddyDatabase.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170316144543_ProfileInformationForUser")]
+    partial class ProfileInformationForUser
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -147,9 +148,7 @@ namespace TravelBuddyDatabase.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<DateTime>("Birthday");
-
-                    b.Property<string>("City");
+                    b.Property<int>("Age");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
@@ -160,8 +159,6 @@ namespace TravelBuddyDatabase.Migrations
                         .HasAnnotation("MaxLength", 256);
 
                     b.Property<bool>("EmailConfirmed");
-
-                    b.Property<int>("Gender");
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -182,8 +179,6 @@ namespace TravelBuddyDatabase.Migrations
                     b.Property<bool>("PhoneNumberConfirmed");
 
                     b.Property<string>("SecurityStamp");
-
-                    b.Property<string>("Skype");
 
                     b.Property<string>("Surname");
 
