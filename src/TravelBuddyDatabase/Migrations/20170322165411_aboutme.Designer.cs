@@ -8,9 +8,10 @@ using TravelBuddyDatabase;
 namespace TravelBuddyDatabase.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170322165411_aboutme")]
+    partial class aboutme
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.1")
@@ -163,8 +164,6 @@ namespace TravelBuddyDatabase.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("Email_profile");
-
                     b.Property<int>("Gender");
 
                     b.Property<bool>("LockoutEnabled");
@@ -179,15 +178,11 @@ namespace TravelBuddyDatabase.Migrations
                     b.Property<string>("NormalizedUserName")
                         .HasAnnotation("MaxLength", 256);
 
-                    b.Property<string>("Offer");
-
                     b.Property<string>("PasswordHash");
 
                     b.Property<string>("PhoneNumber");
 
                     b.Property<bool>("PhoneNumberConfirmed");
-
-                    b.Property<double>("Ratings");
 
                     b.Property<string>("SecurityStamp");
 

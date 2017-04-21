@@ -69,7 +69,8 @@ namespace TravelBuddy.Controllers
                 Birthday = user.Birthday,
                 City = user.City,
                 Skype = user.Skype,
-                Gender = user.Gender
+                Gender = user.Gender,
+                AboutMe = user.AboutMe
             
             };
             return View(model);
@@ -86,6 +87,7 @@ namespace TravelBuddy.Controllers
             entity.Birthday = model.Birthday;
             entity.Gender = model.Gender;
             entity.Skype = model.Skype;
+            entity.AboutMe = model.AboutMe;
         await _userManager.UpdateAsync(entity);
             return RedirectToAction("Index");
         }

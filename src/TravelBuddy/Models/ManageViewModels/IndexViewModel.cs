@@ -36,5 +36,15 @@ namespace TravelBuddy.Models.ManageViewModels
 
         public string Skype { get; set; }
 
+        public string AboutMe { get; set; }
+
+        [Display(Name = "Email")]
+        [DataType(DataType.EmailAddress)]
+        public string Email_profil { get; set; }
+
+        public string MyProperty { get; set; }
+
+        public double Ratings { get; set; }
+
     }
 }

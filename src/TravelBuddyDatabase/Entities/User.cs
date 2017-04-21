@@ -19,5 +19,13 @@ namespace TravelBuddyDatabase.Entities
         public GenderType Gender { get; set; }
 
         public string Skype { get; set; }
+
+        public string AboutMe { get; set; }
+
+        public string Email_profile { get; set; }
+
+        public string Offer { get; set; }
+
+        public double Ratings { get; set; }
     }
 }

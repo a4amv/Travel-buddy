@@ -4,7 +4,7 @@
     ViewData["Title"] = "Manage your account";
 }
 
-<h2>@ViewData["Title"].</h2>
+<h2>@ViewData["Title"]</h2>
 <p class="text-success">@ViewData["StatusMessage"]</p>
 
 <div>
@@ -14,60 +14,79 @@
         <div class="form-horizontal">
             <hr />
             <div asp-validation-summary="All" class="text-danger"></div>
-
             <div class="form-group">
-                <label asp-for="Name" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
+                <label asp-for="Name" class="col-sm-4 control-label"></label>
+                <div class="col-md-3 col-sm-5">
                     <input asp-for="Name" class="form-control" />
                     <span asp-validation-for="Name" class="text-danger" />
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="Surname" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
+                <label asp-for="Surname" class="col-sm-4 control-label"></label>
+                <div class="col-md-3 col-sm-5">
                     <input asp-for="Surname" class="form-control" />
                     <span asp-validation-for="Surname" class="text-danger" />
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="Country" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
+                <label asp-for="Country" class="col-sm-4 control-label"></label>
+                <div class="col-md-3 col-sm-5">
                     <input asp-for="Country" class="form-control" />
                     <span asp-validation-for="Country" class="text-danger" />
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="City" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
+                <label asp-for="City" class="col-sm-4 control-label"></label>
+                <div class="col-md-3 col-sm-5">
                     <input asp-for="City" class="form-control" />
                     <span asp-validation-for="City" class="text-danger" />
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="Birthday" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
+                <label asp-for="Birthday" class="col-sm-4 control-label"></label>
+                <div class="col-md-3 col-sm-5">
                     <input asp-for="Birthday" class="form-control" />
                     <span asp-validation-for="Birthday" class="text-danger" />
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="Gender" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
+                <label asp-for="Gender" class="col-sm-4 control-label"></label>
+                <div class="col-md-3 col-sm-5">
                     <select asp-for="Gender" class="form-control" asp-items="Html.GetEnumSelectList<GenderType>()"></select>
-
                     <span asp-validation-for="Gender" class="text-danger" />
                 </div>
             </div>
             <div class="form-group">
-                <label asp-for="Skype" class="col-md-2 control-label"></label>
-                <div class="col-md-10">
+                <label asp-for="Email_profil" class="col-sm-4 control-label">Email</label>
+                <div class="col-md-3 col-sm-5">
+                    <input asp-for="Email_profil" class="form-control" />
+                    <span asp-validation-for="Email_profil" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Skype" class="col-sm-4 control-label"></label>
+                <div class="col-md-3 col-sm-5">
                     <input asp-for="Skype" class="form-control" />
                     <span asp-validation-for="Skype" class="text-danger" />
                 </div>
             </div>
             <div class="form-group">
-                <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Save" class="btn btn-default" />
+                <label asp-for="AboutMe" class="col-sm-4 control-label">About me</label>
+                <div class="col-md-3 col-sm-5">
+                    <textarea rows="4" cols="50" asp-for="AboutMe" class="form-control"></textarea>
+                    <span asp-validation-for="AboutMe" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Ratings" class="col-sm-4 control-label">Rating</label>
+                <div class="col-md-3 col-sm-5">
+                    <input asp-for="Ratings" class="form-control" />
+                    <span asp-validation-for="Ratings" class="text-danger" />
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-6 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-danger" />
                 </div>
             </div>
             
@@ -77,18 +96,18 @@
 
     <hr />
     <dl class="dl-horizontal">
-        <dt>Password:</dt>
+        <dt></dt>
         <dd>
             @if (Model.HasPassword)
             {
-                <a asp-controller="Manage" asp-action="ChangePassword" class="btn-bracketed">Change</a>
+                <a asp-controller="Manage" asp-action="ChangePassword" class="btn btn-danger">Change password</a>
             }
             else
             {
                 <a asp-controller="Manage" asp-action="SetPassword" class="btn-bracketed">Create</a>
             }
         </dd>
-        <dt>External Logins:</dt>
+        @*<dt>External Logins:</dt>
         <dd>
 
             @Model.Logins.Count <a asp-controller="Manage" asp-action="ManageLogins" class="btn-bracketed">Manage</a>
@@ -99,7 +118,7 @@
                 Phone Numbers can used as a second factor of verification in two-factor authentication.
                 See <a href="http://go.microsoft.com/fwlink/?LinkID=532713">this article</a>
                 for details on setting up this ASP.NET application to support two-factor authentication using SMS.
-            </p>
+            </p>*@
             @*@(Model.PhoneNumber ?? "None")
                 @if (Model.PhoneNumber != null)
                 {
@@ -115,12 +134,12 @@
                 }*@
         </dd>
 
-        <dt>Two-Factor Authentication:</dt>
+        @*<dt>Two-Factor Authentication:</dt>
         <dd>
             <p>
                 There are no two-factor authentication providers configured. See <a href="http://go.microsoft.com/fwlink/?LinkID=532713">this article</a>
                 for setting up this application to support two-factor authentication.
-            </p>
+            </p>*@
             @*@if (Model.TwoFactor)
                 {
                     <form asp-controller="Manage" asp-action="DisableTwoFactorAuthentication" method="post" class="form-horizontal">
