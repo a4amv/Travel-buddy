@@ -11,7 +11,8 @@
 }
 
 <h2>Messages</h2>
-
+@if (User.Identity.IsAuthenticated)
+{
 @*<div>
     <a asp-action="Index">Refresh page</a>
 </div>*@
@@ -32,9 +33,9 @@
                 <div class="list-group" style="margin-bottom: 15px;">
                    @foreach (var item in Model) 
                    {
-                            <div class="list-group-item conversation" data-contact="@item">
+                            <div class="conversation list-group-item " data-contact="@item" onclick="getMessages('@Html.DisplayFor(modelItem => item)')">
                                 @Html.DisplayFor(modelItem => item)
-                            <span class="badge">1</span></div>
+                            <span id="@Html.DisplayFor(modelItem => item)" class="badge">1</span></div>
                    }
                                                                      
                 </div>
@@ -51,8 +52,10 @@
             </div>
 
             <div class="panel panel-primary col-md-8" style="padding:0px 0px 0px 0px; ">
-                <!-- Default panel contents -->
-                <div class="panel-heading">Saul McGill</div>
+                <!-- Default panel contents -->              
+
+                <div id ="nameOfUser" class="panel-heading">Saul McGill</div>
+
                 <div class="panel-body">
 
                     <p class="text-left">Hi buddy, how are things? :)<br><span class="small text-muted">10.1.2017 10:30</span></p>
@@ -75,26 +78,41 @@
         </div>
     </div>
 </form>
+} else {
+<h4>Sorry, you need to be <a asp-area="" asp-controller="Account" asp-action="Login">Logged in</a> :/ </h4>
 
+}
 
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-<script>
+<!--<script> /*******************Nachystaný ajax z hodiny****************/
     $(function () {
         $(".conversation").click(function () {
+            alert("Name clicked!");
+            document.getElementById("nameOfUser").innerHTML = "72";
             var anchor = $(this);
             var contact = anchor.data("contact");
             $.ajax(@Url.Action("Conversation")) // udìlat metodu v controlleru
             .success(function (data) {
+                document.getElementById("nameOfUser").innerHTML = "50";
                 //pres element muzu pracovat s daty(ktere si poslu v JASONu)
             })
             .error(function (data) {
                 //zobrazeni nejake chybove hlasky
+                alert("Pøi stahování zpráv došlo k chybì!")
             })
             ;
             });
     })
 
+    </script>-->
+
+    <script>
+        function getMessages(jmeno) {
+           // alert("Name clicked!" + jmeno);
+            document.getElementById("nameOfUser").innerHTML = jmeno;
+            document.getElementById(jmeno).className = "hidden";
+        }
     </script>
 }

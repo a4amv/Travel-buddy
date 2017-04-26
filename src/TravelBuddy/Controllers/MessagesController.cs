@@ -30,11 +30,39 @@ namespace TravelBuddy.Controllers
                 //              .Distinct()
                 //              .ToList();
 
-                var data = db.Messages.Select(a => new { SentFrom = a.SentFrom, SentTo = a.SentTo })
+                var data = db.Messages.Select(a => new { SentFrom = a.SentFrom, SentTo = a.SentTo, MessageTime = a.MessageTime })
                     .Where(b => b.SentFrom == User.Identity.Name || b.SentTo == User.Identity.Name)
-                    .Select(a => a.SentFrom != User.Identity.Name ? a.SentFrom : a.SentTo)
-                              .Distinct()
+                    .Distinct()
+                    .OrderByDescending(a => a.MessageTime)
+                    .Select(a => a.SentFrom != User.Identity.Name ? a.SentFrom : a.SentTo)                    
+                              //.Distinct()
+                              .Take(2)
                               .ToList();
+                return View(data);
+
+                /*
+                 
+             
+                 */
+            }
+        }
+
+        public JsonResult Conversation()
+        {
+            JsonResult result = new JsonResult(10);
+            return result;
+        }
+        public ActionResult AllConversations()
+        {
+            using (var db = DbFactory.Create())
+            {
+
+                var data = db.Messages.Select(a => new { SentFrom = a.SentFrom, SentTo = a.SentTo, MessageTime = a.MessageTime }) //vyber od koho, komu a èas zprávy                                     
+                                      .Where(b => b.SentFrom == User.Identity.Name || b.SentTo == User.Identity.Name) //jen kde jeden z nich sem já
+                                      .OrderByDescending(a => a.MessageTime) // seøaï podle èasu zprávy sestupnì
+                                      .Select(a => a.SentFrom != User.Identity.Name ? a.SentFrom : a.SentTo) // vyber jméno toho druhého
+                                      .Distinct() // jenom jednou
+                                      .ToList();
                 return View(data);
             }
         }
