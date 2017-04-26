@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -20,6 +23,7 @@ namespace TravelBuddy.Controllers
         private readonly SignInManager<User> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
+        private readonly IHostingEnvironment _environment;
         private readonly ILogger _logger;
 
         public ManageController(
@@ -27,15 +31,45 @@ namespace TravelBuddy.Controllers
         SignInManager<User> signInManager,
         IEmailSender emailSender,
         ISmsSender smsSender,
-        ILoggerFactory loggerFactory)
+        ILoggerFactory loggerFactory,
+        IHostingEnvironment environment)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
+            _environment = environment;
             _logger = loggerFactory.CreateLogger<ManageController>();
         }
 
+        [HttpGet]
+        public async Task<IActionResult> PublicProfile(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                return View("Error");
+            }
+            var model = new IndexViewModel
+            {
+                Id = user.Id,
+                HasPassword = await _userManager.HasPasswordAsync(user),
+                PhoneNumber = await _userManager.GetPhoneNumberAsync(user),
+                TwoFactor = await _userManager.GetTwoFactorEnabledAsync(user),
+                Logins = await _userManager.GetLoginsAsync(user),
+                BrowserRemembered = await _signInManager.IsTwoFactorClientRememberedAsync(user),
+                Name = user.Name,
+                Surname = user.Surname,
+                Country = user.Country,
+                Birthday = user.Birthday,
+                City = user.City,
+                Skype = user.Skype,
+                Gender = user.Gender,
+                AboutMe = user.AboutMe,
+                PathToImage = user.PathToImage
+            };
+            return View("Index",model);
+        }
         //
         // GET: /Manage/Index
         [HttpGet]
@@ -75,9 +109,10 @@ namespace TravelBuddy.Controllers
             };
             return View(model);
         }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Index(IndexViewModel model)
+        public async Task<IActionResult> Index(IndexViewModel model, IFormFile image)
         {
             var entity = await _userManager.FindByIdAsync(model.Id);
             entity.Name = model.Name;
@@ -89,7 +124,22 @@ namespace TravelBuddy.Controllers
             entity.Skype = model.Skype;
             entity.AboutMe = model.AboutMe;
             entity.PathToImage = model.PathToImage;
+
+            //save the image
+            if (image.Length > 0)
+            {
+                var uploads = Path.Combine(_environment.WebRootPath, "uploads");
+                using (var fileStream = new FileStream(Path.Combine(uploads, image.FileName), FileMode.Create))
+                {
+                    await image.CopyToAsync(fileStream);
+                }
+                var relativePath = "~/uploads/" + image.FileName;
+                entity.PathToImage = relativePath;
+            }
+
             await _userManager.UpdateAsync(entity);
+
+
             return RedirectToAction("Index");
         }
 
