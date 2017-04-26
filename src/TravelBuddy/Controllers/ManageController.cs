@@ -70,8 +70,8 @@ namespace TravelBuddy.Controllers
                 City = user.City,
                 Skype = user.Skype,
                 Gender = user.Gender,
-                AboutMe = user.AboutMe
-            
+                AboutMe = user.AboutMe,
+                PathToImage = user.PathToImage
             };
             return View(model);
         }
@@ -88,9 +88,12 @@ namespace TravelBuddy.Controllers
             entity.Gender = model.Gender;
             entity.Skype = model.Skype;
             entity.AboutMe = model.AboutMe;
-        await _userManager.UpdateAsync(entity);
+            entity.PathToImage = model.PathToImage;
+            await _userManager.UpdateAsync(entity);
             return RedirectToAction("Index");
         }
+
+
 
         //
         // POST: /Manage/RemoveLogin
