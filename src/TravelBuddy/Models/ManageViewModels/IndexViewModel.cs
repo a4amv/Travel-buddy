@@ -45,6 +45,6 @@ namespace TravelBuddy.Models.ManageViewModels
         public string MyProperty { get; set; }
 
         public double Ratings { get; set; }
-
+        public string PathToImage { get; set; }
     }
 }
