@@ -67,21 +67,31 @@ namespace TravelBuddy.Controllers
             }
         }
 
-        // GET: Messages/Details/5
-        public ActionResult Details(int id)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id">Contact email</param>
+        /// <returns></returns>
+        public JsonResult Details(string id)
         {
             using (var db = DbFactory.Create())
             {
-                var data = db.Messages.Select(a => new MessagesViewModel()
-                {
-                    Id = a.Id,
-                    SentFrom = a.SentFrom,
-                    SentTo = a.SentTo,
-                    IsRead = a.IsRead,
-                    ThisMessage = a.ThisMessage,
-                    MessageTime = a.MessageTime
-                }).Where( a => a.SentTo == User.Identity.Name) .ToList();
-                return View(data);
+                var data = db.Messages
+                    .Select(a => new MessagesViewModel()
+                    {
+                        Id = a.Id,
+                        SentFrom = a.SentFrom,
+                        SentTo = a.SentTo,
+                        IsRead = a.IsRead,
+                        ThisMessage = a.ThisMessage,
+                        MessageTime = a.MessageTime
+                    })
+                .Where(a =>
+                    (a.SentTo == User.Identity.Name && a.SentFrom == id) ||
+                    (a.SentTo == id && a.SentFrom == User.Identity.Name))
+                .OrderBy(a => a.MessageTime)
+                .ToList();
+                return new JsonResult(data);
             }
         }
 
