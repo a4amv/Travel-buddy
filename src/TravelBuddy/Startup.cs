@@ -102,6 +102,9 @@ namespace TravelBuddy
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapRoute(
+    name: "detail",
+    template: "{controller=Finder}/{action=Detail}/{id?}");
             });
         }
     }

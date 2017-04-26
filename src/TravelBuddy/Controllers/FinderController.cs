@@ -65,24 +65,11 @@ namespace TravelBuddy.Controllers
 
 
             }
-
         }
 
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        public ActionResult Detail(string userID)
+        {
+            return null;
+        }
     }
 }
