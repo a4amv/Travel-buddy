@@ -17,7 +17,7 @@
     <a asp-action="Index">Refresh page</a>
 </div>*@
 
-<form asp-action="Index">
+
     <div class="form-horizontal">
       
         <hr />
@@ -65,20 +65,23 @@
                    
                 </div>
                 <!-- List group -->
-                <ul class="list-group">
-                    <li class="list-group-item" style="border:none">
-                        <div class="input-group">
-                            <input type="text" style="max-width: 100%;" class="form-control" placeholder="Reply text">
-                            <span class="input-group-btn">
-                                <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-send" aria-hidden="true"></span></button>
-                            </span>
-                        </div><!-- /input-group -->
-                    </li>
-                </ul>
+                <form asp-controller="Messagges" asp-action="Create" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+                    <ul class="list-group">
+                        <li class="list-group-item" style="border:none">
+                            <div class="input-group">
+                                <input  asp-for="ThisMessage" type="text" style="max-width: 100%;" class="form-control" placeholder="Reply text">
+                                <input asp-for="SentTo" id="senttowho"  type="hidden" class="form-control" value ="null">
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-send " aria-hidden="true" asp-action="Create"></span></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </li>
+                    </ul>
+               </form>
             </div>
         </div>
     </div>
-</form>
+
 } else {
 <h4>Sorry, you need to be <a asp-area="" asp-controller="Account" asp-action="Login">Logged in</a> :/ </h4>
 
@@ -90,8 +93,10 @@
 
     <script>
         var detailUrl = "@Url.Action("Details")";
+
         function getMessages(jmeno) {
             document.getElementById("nameOfUser").innerHTML = jmeno;
+            document.getElementById("senttowho").value = jmeno;
             document.getElementById(jmeno).className = "hidden";
 
             var targetUrl = detailUrl + "/" + jmeno;
@@ -100,7 +105,15 @@
                     var $wrapper = $("#userMessages").empty();
                     for (var i in data) {
                         var message = data[i];
-                        var $htmlMessage = $('<p class="text-left">'+message.thisMessage+'<br><span class="small text-muted">'+message.messageTime+'</span></p>');
+                        var user = '@UserManager.GetUserName(User)';
+                        var $htmlMessage = 'prazdna';
+                        var d = new Date(message.messageTime);
+                        if(message.sentTo == user){
+                            $htmlMessage = $('<p class="text-left">' + message.thisMessage + '<br><span class="chatTime">' + d.getDay() + '.' + d.getMonth() + '. ' + d.getHours() + ':' + d.getMinutes() + '</span></p>');
+                        } else {
+                            $htmlMessage = $('<p class="text-right">' + message.thisMessage + '<br><span class="chatTime">' + d.getDay() + '.' + d.getMonth() + '. ' + d.getHours() + ':' + d.getMinutes() + '</span></p>');
+                        }
+                       
                         $wrapper.append($htmlMessage);
                     }
                 }

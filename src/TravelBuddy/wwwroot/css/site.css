@@ -40,6 +40,12 @@ textarea {
   cursor: pointer;
 }
 
+.chatTime{
+     font-size: 80%;
+     color: rgba(119, 119, 119, 0.61);
+     vertical-align: super;
+}
+
 /* Make .svg files in the carousel display properly in older browsers */
 .carousel-inner .item img[src$=".svg"]
 {

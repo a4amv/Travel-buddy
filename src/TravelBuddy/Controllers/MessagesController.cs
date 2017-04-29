@@ -32,11 +32,11 @@ namespace TravelBuddy.Controllers
 
                 var data = db.Messages.Select(a => new { SentFrom = a.SentFrom, SentTo = a.SentTo, MessageTime = a.MessageTime })
                     .Where(b => b.SentFrom == User.Identity.Name || b.SentTo == User.Identity.Name)
-                    .Distinct()
-                    .OrderByDescending(a => a.MessageTime)
+                    //.Distinct()
+                    .OrderBy(a => a.MessageTime)
                     .Select(a => a.SentFrom != User.Identity.Name ? a.SentFrom : a.SentTo)                    
-                              //.Distinct()
-                              .Take(2)
+                              .Distinct()
+                              .Take(10)
                               .ToList();
                 return View(data);
 
@@ -47,11 +47,7 @@ namespace TravelBuddy.Controllers
             }
         }
 
-        public JsonResult Conversation()
-        {
-            JsonResult result = new JsonResult(10);
-            return result;
-        }
+  
         public ActionResult AllConversations()
         {
             using (var db = DbFactory.Create())
@@ -116,11 +112,11 @@ namespace TravelBuddy.Controllers
                 {
                     db.Messages.Add(new Messages()
                     {
-                        SentFrom = model.SentFrom,
+                        SentFrom = User.Identity.Name,
                         SentTo = model.SentTo,
-                        IsRead = model.IsRead,
+                        IsRead = false,
                         ThisMessage = model.ThisMessage,
-                        MessageTime = model.MessageTime
+                        MessageTime = DateTime.Now
                     });
                     db.SaveChanges();
                 }
