@@ -38,6 +38,7 @@ textarea {
 
 .conversation:hover{
   cursor: pointer;
+  background-color: #ddd;
 }
 
 .chatTime{

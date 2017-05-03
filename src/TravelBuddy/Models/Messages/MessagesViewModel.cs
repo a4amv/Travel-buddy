@@ -20,7 +20,7 @@ namespace TravelBuddy.Models.Messages
 
         public string ThisMessage { get; set; }
 
-        [DataType(DataType.Date)]
+     //   [DataType(DataType.Time)]
         public DateTime MessageTime { get; set; }
 
     }

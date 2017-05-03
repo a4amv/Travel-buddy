@@ -129,6 +129,42 @@ namespace TravelBuddy.Controllers
             }
         }
 
+        // POST: Messages/NewConversation
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult NewConversation(string newUser, string text)
+        {
+            if (newUser != null && text != null)
+            {
+                try
+                {
+                    using (var db = DbFactory.Create())
+                    {
+                        db.Messages.Add(new Messages()
+                        {
+                            SentFrom = User.Identity.Name,
+                            SentTo = newUser,
+                            IsRead = false,
+                            ThisMessage = text,
+                            MessageTime = DateTime.Now
+                        });
+                        db.SaveChanges();
+                    }
+
+                    return RedirectToAction("Index");
+                }
+                catch
+                {
+                    return View();
+                }
+            }
+            else {
+                return RedirectToAction("Index");
+            }
+
+        }
+
+
         // GET: Messages/Edit/5
         public ActionResult Edit(int id)
         {

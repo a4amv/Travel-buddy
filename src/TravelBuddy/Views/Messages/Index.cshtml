@@ -43,25 +43,27 @@
                 <p class="text-right"><a asp-action="AllConversations">Show all...</a></p>
 
                 <h4>Start new conversation:</h4> <!-- NEW CONVERSATION -->
-                <div class="input-group">
-                    <input type="text" style="max-width: 100%;" class="form-control" placeholder="username@mail.com">
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span> </button>
-                    </span>
-                </div>
-
-            </div>
+                <form asp-controller="Messages" asp-action="NewConversation" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+                    <input type="text" name="text" style="max-width: 100%;" class="form-control" placeholder="Your message"><br>
+                    <div class="input-group">                   
+                        <input type="text" name="newUser" style="max-width: 100%;" class="form-control" placeholder="username@mail.com">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                        </span>
+                    </div>
+                </form>
+</div>
 
             <div class="panel panel-primary col-md-8" style="padding:0px 0px 0px 0px; ">
                 <!-- Default panel contents -->              
 
-                <div id ="nameOfUser" class="panel-heading">Saul McGill</div>
+                <div id ="nameOfUser" class="panel-heading">Username</div>
 
                 <div class="panel-body" id="userMessages">
 
-                    <p class="text-left">Hi buddy, how are things? :)<br><span class="small text-muted">10.1.2017 10:30</span></p>
+                   <!-- <p class="text-left">Hi buddy, how are things? :)<br><span class="small text-muted">10.1.2017 10:30</span></p>
 
-                    <p class="text-right" data-toggle="tooltip" title="10.1.2017 10:30">Pretty freaking awesome dude! xD</p>
+                    <p class="text-right" data-toggle="tooltip" title="10.1.2017 10:30">Pretty freaking awesome dude! xD</p>-->
                    
                 </div>
                 <!-- List group -->
@@ -107,11 +109,12 @@
                         var message = data[i];
                         var user = '@UserManager.GetUserName(User)';
                         var $htmlMessage = 'prazdna';
-                        var d = new Date(message.messageTime);
+                        //  var d = new Date(message.messageTime.substr(0,19)+'Z');
+                        var d = moment(message.messageTime)
                         if(message.sentTo == user){
-                            $htmlMessage = $('<p class="text-left">' + message.thisMessage + '<br><span class="chatTime">' + d.getDay() + '.' + d.getMonth() + '. ' + d.getHours() + ':' + d.getMinutes() + '</span></p>');
+                            $htmlMessage = $('<p class="text-left">' + message.thisMessage + '<br><span class="chatTime">' + d.format('DD. MM. hh:mm') + '</span></p>');
                         } else {
-                            $htmlMessage = $('<p class="text-right">' + message.thisMessage + '<br><span class="chatTime">' + d.getDay() + '.' + d.getMonth() + '. ' + d.getHours() + ':' + d.getMinutes() + '</span></p>');
+                            $htmlMessage = $('<p class="text-right">' + message.thisMessage + '<br><span class="chatTime">' + d.format('DD. MM. hh:mm') + '</span></p>');
                         }
                        
                         $wrapper.append($htmlMessage);
