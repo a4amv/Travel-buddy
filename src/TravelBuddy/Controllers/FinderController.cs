@@ -48,6 +48,7 @@ namespace TravelBuddy.Controllers
                 char[] charsToTrim = { ' ' };
                 searchString = searchString.Trim(charsToTrim);
             }
+            ViewData["searchedString"] = searchString;
             using (var db = DbFactory.Create())
             {
                 var data = db.Users.Select(a => new FinderViewModel()

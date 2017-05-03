@@ -3,34 +3,44 @@
 @model IEnumerable<TravelBuddy.Models.FinderViewModel.FinderViewModel>
 
 
-@using (Html.BeginForm())
-{
+<form method="get">
     <p>
-        <center><strong>Location: </strong> @Html.TextBox("searchString")
-        <button type="submit" class="btn">Search</button> </center> 
+        <center>
+            <strong>Location: </strong> @Html.TextBox("searchString")
+            <input type="submit" class="btn" value="Search" />
+        </center>
     </p>
-}
+</form>
+
 <br />
 <br />
 <br />
+
 <div class="container-fluid">
+    @if (ViewData["searchedString"] != null)
+    {
+        <p>
+                <iframe id="gglMap"
+                        width="100%"
+                        height="300"
+                        frameborder="0"
+                        style="border:0"
+                        src="https://www.google.com/maps/embed/v1/search?key=AIzaSyBZ0L3HIChPiNGwBd11QD6UWnwjZ1O35UQ&q=@ViewData["searchedString"].ToString()" allowfullscreen></iframe>
+        </p>
+    }
+
     @foreach (var item in Model)
     {
 
         <div class="col-sm-3 col-md-3 col-lg-4">
-           
+
             <img src="~/images/banner2.jpg" class="img-circle" alt="Cinque Terre" width="100" height="100" />
             <p><i class="glyphicon glyphicon-star"></i></p>
             <p><strong>Nickname:</strong> @Html.DisplayFor(modelItem => item.Name)</p>
             <p><strong>City</strong> @Html.DisplayFor(modelItem => item.city)</p>
             <a asp-route="detail" asp-all-route-data="@(new Dictionary<string,string> { { "id", "12"}})" class="btn btn-danger">Create new</a>
             @*<p><button type="button" class="btn">Show Profile</button></p>*@
-            
+
         </div>
-
-
-
-
-
     }
-</div>  
+</div>
