@@ -65,12 +65,12 @@
                    
                 </div>
                 <!-- List group -->
-                <form asp-controller="Messagges" asp-action="Create" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+                <form asp-controller="Messages" asp-action="Create" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
                     <ul class="list-group">
                         <li class="list-group-item" style="border:none">
                             <div class="input-group">
-                                <input  asp-for="ThisMessage" type="text" style="max-width: 100%;" class="form-control" placeholder="Reply text">
-                                <input asp-for="SentTo" id="senttowho"  type="hidden" class="form-control" value ="null">
+                                <input name="ThisMessage" type="text" style="max-width: 100%;" class="form-control" placeholder="Reply text">
+                                <input name="SentTo" id="senttowho" type="hidden" class="form-control" value ="null">
                                 <span class="input-group-btn">
                                     <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-send " aria-hidden="true" asp-action="Create"></span></button>
                                 </span>
