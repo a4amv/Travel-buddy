@@ -11,7 +11,7 @@ namespace TravelBuddy.Models.FinderViewModel
         public string Name { get; set; }
         public string city { get; set; }
         public string tags { get; set; }
-
+        public string PathToImage { get; set; }
 
     }
 }
