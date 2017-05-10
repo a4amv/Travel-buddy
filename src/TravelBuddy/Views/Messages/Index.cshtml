@@ -35,7 +35,7 @@
                    {
                             <div class="conversation list-group-item " onclick="getMessages('@Html.DisplayFor(modelItem => item)')">
                                 @Html.DisplayFor(modelItem => item)
-                                <span id="@Html.DisplayFor(modelItem => item)" class="badge">1</span>
+                                <span id="@Html.DisplayFor(modelItem => item)" class="badge">new!</span>
                             </div>
                    }
                                                                      
@@ -44,9 +44,10 @@
 
                 <h4>Start new conversation:</h4> <!-- NEW CONVERSATION -->
                 <form asp-controller="Messages" asp-action="NewConversation" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
-                    <input type="text" name="text" style="max-width: 100%;" class="form-control" placeholder="Your message"><br>
+              
+                    <input type="text" name="newUser" style="max-width: 100%;" class="form-control" placeholder="username@mail.com"><br>
                     <div class="input-group">                   
-                        <input type="text" name="newUser" style="max-width: 100%;" class="form-control" placeholder="username@mail.com">
+                        <input type="text" name="text" style="max-width: 100%;" class="form-control" placeholder="Your message">
                         <span class="input-group-btn">
                             <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
                         </span>
@@ -69,7 +70,7 @@
 
                 <div id ="nameOfUser" class="panel-heading">Username</div>
 
-                <div class="panel-body" id="userMessages">
+                <div class="panel-body" id="userMessages" style="height:322px; overflow-y:auto">
 
                    <!-- <p class="text-left">Hi buddy, how are things? :)<br><span class="small text-muted">10.1.2017 10:30</span></p>
 
@@ -78,7 +79,7 @@
                 </div>
                 <!-- List group -->
                 <form asp-controller="Messages" asp-action="Create" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
-                    <ul class="list-group">
+                    <ul class="list-group" style="margin:0">
                         <li class="list-group-item" style="border:none">
                             <div class="input-group">
                                 <input name="ThisMessage" type="text" style="max-width: 100%;" class="form-control" placeholder="Reply text">
@@ -107,28 +108,43 @@
         var detailUrl = "@Url.Action("Details")";
 
         function getMessages(jmeno) {
-            document.getElementById("nameOfUser").innerHTML = jmeno;
-            document.getElementById("senttowho").value = jmeno;
-            document.getElementById(jmeno).className = "hidden";
+            try {
+                document.getElementById(jmeno).className = "hidden";
+            }
+            catch(err){
+                
+            }
+            var $wrapper = $("#userMessages").empty();
 
             var targetUrl = detailUrl + "/" + jmeno;
             $.ajax(targetUrl,{
                 success: function (data) {
-                    var $wrapper = $("#userMessages").empty();
-                    for (var i in data) {
-                        var message = data[i];
-                        var user = '@UserManager.GetUserName(User)';
-                        var $htmlMessage = 'prazdna';
-                        //  var d = new Date(message.messageTime.substr(0,19)+'Z');
-                        var d = moment(message.messageTime)
-                        if(message.sentTo == user){
-                            $htmlMessage = $('<p class="text-left">' + message.thisMessage + '<br><span class="chatTime">' + d.format('DD. MM. hh:mm') + '</span></p>');
-                        } else {
-                            $htmlMessage = $('<p class="text-right">' + message.thisMessage + '<br><span class="chatTime">' + d.format('DD. MM. hh:mm') + '</span></p>');
-                        }
+                    if (data.length == 0) {
+                        alert("Error! Can't find any conversation with " + jmeno + "!");
+                        document.getElementById("nameOfUser").innerHTML = "Username";
+                        document.getElementById("senttowho").value = "";
+                    } else {
+                        document.getElementById("nameOfUser").innerHTML = jmeno;
+                        document.getElementById("senttowho").value = jmeno;
+                    
+                        for (var i in data) {
+                            var message = data[i];
+                            var user = '@UserManager.GetUserName(User)';
+                            var $htmlMessage = 'prazdna';
+                            //  var d = new Date(message.messageTime.substr(0,19)+'Z');
+                            var d = moment(message.messageTime)
+                            if(message.sentTo == user){
+                                $htmlMessage = $('<p class="text-left">' + message.thisMessage + '<br><span class="chatTime">' + d.format('DD. MM. hh:mm') + '</span></p>');
+                            } else {
+                                $htmlMessage = $('<p class="text-right">' + message.thisMessage + '<br><span class="chatTime">' + d.format('DD. MM. hh:mm') + '</span></p>');
+                            }
                        
-                        $wrapper.append($htmlMessage);
+                            $wrapper.append($htmlMessage);
+                        }
                     }
+                },
+                error: function(){
+                    alert("Ajax: An error occured when fetching messages data!");
                 }
             });
         }

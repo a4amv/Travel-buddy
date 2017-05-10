@@ -33,17 +33,12 @@ namespace TravelBuddy.Controllers
                 var data = db.Messages.Select(a => new { SentFrom = a.SentFrom, SentTo = a.SentTo, MessageTime = a.MessageTime })
                     .Where(b => b.SentFrom == User.Identity.Name || b.SentTo == User.Identity.Name)
                     //.Distinct()
-                    .OrderBy(a => a.MessageTime)
+                    .OrderByDescending(a => a.MessageTime)
                     .Select(a => a.SentFrom != User.Identity.Name ? a.SentFrom : a.SentTo)                    
                               .Distinct()
                               .Take(4)
                               .ToList();
                 return View(data);
-
-                /*
-                 
-             
-                 */
             }
         }
 
