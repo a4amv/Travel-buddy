@@ -36,7 +36,7 @@ namespace TravelBuddy.Controllers
                     .OrderBy(a => a.MessageTime)
                     .Select(a => a.SentFrom != User.Identity.Name ? a.SentFrom : a.SentTo)                    
                               .Distinct()
-                              .Take(10)
+                              .Take(4)
                               .ToList();
                 return View(data);
 
@@ -106,6 +106,9 @@ namespace TravelBuddy.Controllers
             {
                 return View(model);
             }
+            else if (model.SentTo == null || model.ThisMessage == null || model.ThisMessage == "" || model.ThisMessage == "null") {
+                return RedirectToAction("Index");
+            }
             try
             {
                 using (var db = DbFactory.Create())
@@ -163,7 +166,6 @@ namespace TravelBuddy.Controllers
             }
 
         }
-
 
         // GET: Messages/Edit/5
         public ActionResult Edit(int id)

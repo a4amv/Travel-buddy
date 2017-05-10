@@ -17,24 +17,24 @@
     <div class="form-horizontal">
         <div class="row">
             <div class="col-md-4">
-                <h4>Search for conversation:</h4>
+                <!-- <h4>All conversations:</h4>
+               <div class="input-group">
+                    <input type="text" style="max-width: 100%;" class="form-control" placeholder="username@mail.com">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> </button>
+                    </span>
+                </div>-->
+                <br>
                 <div class="list-group" style="margin-bottom: 15px;">
                     @foreach (var item in Model)
                     {
                         <div class="list-group-item conversation" data-contact="@item">
                             @Html.DisplayFor(modelItem => item)
-                            <span class="badge">1</span>
+                            
                         </div>
                     }
                   
-                </div>
-
-                <div class="input-group">
-                    <input type="text" style="max-width: 100%;" class="form-control" placeholder="username@mail.com">
-                    <span class="input-group-btn">
-                        <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> </button>
-                    </span>
-                </div>
+                </div>               
             </div>
         </div>
     </div>

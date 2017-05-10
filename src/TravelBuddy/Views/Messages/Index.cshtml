@@ -52,9 +52,19 @@
                         </span>
                     </div>
                 </form>
+                <br>
+                <h4>Search for a conversation:</h4> <!-- SEARCH FOR A CONVERSATION -->
+                          
+                    <div class="input-group">
+                        <input type="text" id="UsernameToSearch" style="max-width: 100%;" class="form-control" placeholder="username@mail.com">
+                        <span class="input-group-btn">
+                            <button onclick="getMessages(document.getElementById('UsernameToSearch').value)" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        </span>
+                    </div>
+               
 </div>
 
-            <div class="panel panel-primary col-md-8" style="padding:0px 0px 0px 0px; ">
+            <div class="panel panel-primary col-md-8" style="padding:0px 0px 0px 0px; margin-top: 39px; ">
                 <!-- Default panel contents -->              
 
                 <div id ="nameOfUser" class="panel-heading">Username</div>
