@@ -1,0 +1,152 @@
+@using System.Threading.Tasks
+@using Microsoft.AspNetCore.Identity
+@using TravelBuddy.Models
+@using TravelBuddyDatabase.Entities
+@*using TravelBuddy.Controllers*@
+@model IEnumerable<string>
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@{
+    ViewData["Title"] = "Messages";
+}
+
+<h2>Messages</h2>
+@if (User.Identity.IsAuthenticated)
+{
+@*<div>
+    <a asp-action="Index">Refresh page</a>
+</div>*@
+
+
+    <div class="form-horizontal">
+      
+        <hr />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+      
+    </div>
+    <br>
+    
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-4">
+                <h4>Recent conversations:</h4> <!-- RECENT CONVERSATION -->
+                <div class="list-group" style="margin-bottom: 15px;">
+                   @foreach (var item in Model) 
+                   {
+                            <div class="conversation list-group-item " onclick="getMessages('@Html.DisplayFor(modelItem => item)')">
+                                @Html.DisplayFor(modelItem => item)
+                                <span id="@Html.DisplayFor(modelItem => item)" class="badge">new!</span>
+                            </div>
+                   }
+                                                                     
+                </div>
+                <p class="text-right"><a asp-action="AllConversations">Show all...</a></p>
+
+                <h4>Start new conversation:</h4> <!-- NEW CONVERSATION -->
+                <form asp-controller="Messages" asp-action="NewConversation" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+              
+                    <input type="text" name="newUser" style="max-width: 100%;" class="form-control" placeholder="username@mail.com"><br>
+                    <div class="input-group">                   
+                        <input type="text" name="text" style="max-width: 100%;" class="form-control" placeholder="Your message">
+                        <span class="input-group-btn">
+                            <button type="submit" class="btn btn-primary" ><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                        </span>
+                    </div>
+                </form>
+                <br>
+                <h4>Search for a conversation:</h4> <!-- SEARCH FOR A CONVERSATION -->
+                          
+                    <div class="input-group">
+                        <input type="text" id="UsernameToSearch" style="max-width: 100%;" class="form-control" placeholder="username@mail.com">
+                        <span class="input-group-btn">
+                            <button onclick="getMessages(document.getElementById('UsernameToSearch').value)" class="btn btn-primary"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                        </span>
+                    </div>
+               
+</div>
+
+            <div class="panel panel-primary col-md-8" style="padding:0px 0px 0px 0px; margin-top: 39px; ">
+                <!-- Default panel contents -->              
+
+                <div id ="nameOfUser" class="panel-heading">Username</div>
+
+                <div class="panel-body" id="userMessages" style="height:322px; overflow-y:auto">
+
+                   <!-- <p class="text-left">Hi buddy, how are things? :)<br><span class="small text-muted">10.1.2017 10:30</span></p>
+
+                    <p class="text-right" data-toggle="tooltip" title="10.1.2017 10:30">Pretty freaking awesome dude! xD</p>-->
+                   
+                </div>
+                <!-- List group -->
+                <form asp-controller="Messages" asp-action="Create" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
+                    <ul class="list-group" style="margin:0">
+                        <li class="list-group-item" style="border:none">
+                            <div class="input-group">
+                                <input name="ThisMessage" type="text" style="max-width: 100%;" class="form-control" placeholder="Reply text">
+                                <input name="SentTo" id="senttowho" type="hidden" class="form-control" value ="null">
+                                <span class="input-group-btn">
+                                    <button type="submit" class="btn btn-primary"><span class="glyphicon glyphicon-send " aria-hidden="true" asp-action="Create"></span></button>
+                                </span>
+                            </div><!-- /input-group -->
+                        </li>
+                    </ul>
+               </form>
+            </div>
+        </div>
+    </div>
+
+} else {
+<h4>Sorry, you need to be <a asp-area="" asp-controller="Account" asp-action="Login">Logged in</a> :/ </h4>
+
+}
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script>
+        var detailUrl = "@Url.Action("Details")";
+
+        function getMessages(jmeno) {
+            try {
+                document.getElementById(jmeno).className = "hidden";
+            }
+            catch(err){
+                
+            }
+            var $wrapper = $("#userMessages").empty();
+
+            var targetUrl = detailUrl + "/" + jmeno;
+            $.ajax(targetUrl,{
+                success: function (data) {
+                    if (data.length == 0) {
+                        alert("Error! Can't find any conversation with " + jmeno + "!");
+                        document.getElementById("nameOfUser").innerHTML = "Username";
+                        document.getElementById("senttowho").value = "";
+                    } else {
+                        document.getElementById("nameOfUser").innerHTML = jmeno;
+                        document.getElementById("senttowho").value = jmeno;
+                    
+                        for (var i in data) {
+                            var message = data[i];
+                            var user = '@UserManager.GetUserName(User)';
+                            var $htmlMessage = 'prazdna';
+                            //  var d = new Date(message.messageTime.substr(0,19)+'Z');
+                            var d = moment(message.messageTime)
+                            if(message.sentTo == user){
+                                $htmlMessage = $('<p class="text-left">' + message.thisMessage + '<br><span class="chatTime">' + d.format('DD. MM. hh:mm') + '</span></p>');
+                            } else {
+                                $htmlMessage = $('<p class="text-right">' + message.thisMessage + '<br><span class="chatTime">' + d.format('DD. MM. hh:mm') + '</span></p>');
+                            }
+                       
+                            $wrapper.append($htmlMessage);
+                        }
+                    }
+                },
+                error: function(){
+                    alert("Ajax: An error occured when fetching messages data!");
+                }
+            });
+        }
+    </script>
+}

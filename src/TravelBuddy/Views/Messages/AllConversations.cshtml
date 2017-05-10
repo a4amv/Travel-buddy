@@ -1,0 +1,55 @@
+@using System.Threading.Tasks
+@using Microsoft.AspNetCore.Identity
+@using TravelBuddy.Models
+@using TravelBuddyDatabase.Entities
+@*using TravelBuddy.Controllers*@
+@model IEnumerable<string>
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@{
+    ViewData["Title"] = "All conversations";
+}
+
+<h2>All your conversations</h2>
+@if (User.Identity.IsAuthenticated)
+{
+<form asp-action="AllConversations">
+    <div class="form-horizontal">
+        <div class="row">
+            <div class="col-md-4">
+                <!-- <h4>All conversations:</h4>
+               <div class="input-group">
+                    <input type="text" style="max-width: 100%;" class="form-control" placeholder="username@mail.com">
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" type="button"><span class="glyphicon glyphicon-search" aria-hidden="true"></span> </button>
+                    </span>
+                </div>-->
+                <br>
+                <div class="list-group" style="margin-bottom: 15px;">
+                    @foreach (var item in Model)
+                    {
+                        <div class="list-group-item conversation" data-contact="@item">
+                            @Html.DisplayFor(modelItem => item)
+                            
+                        </div>
+                    }
+                  
+                </div>               
+            </div>
+        </div>
+    </div>
+    <br>
+</form>
+
+<div>
+    <a asp-action="Index">Take me back to Messages page please!</a>
+</div>
+
+} else {
+<h4>Sorry, you need to be <a asp-area="" asp-controller="Account" asp-action="Login">Logged in</a> :/ </h4>
+
+}
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

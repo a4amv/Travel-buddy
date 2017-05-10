@@ -141,6 +141,26 @@ namespace TravelBuddyDatabase.Migrations
                     b.ToTable("Advertisment");
                 });
 
+            modelBuilder.Entity("TravelBuddyDatabase.Entities.Messages", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<bool>("IsRead");
+
+                    b.Property<DateTime>("MessageTime");
+
+                    b.Property<string>("SentFrom");
+
+                    b.Property<string>("SentTo");
+
+                    b.Property<string>("ThisMessage");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Messages");
+                });
+
             modelBuilder.Entity("TravelBuddyDatabase.Entities.User", b =>
                 {
                     b.Property<string>("Id");
