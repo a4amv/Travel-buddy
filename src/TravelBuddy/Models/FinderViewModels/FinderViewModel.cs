@@ -8,6 +8,7 @@ namespace TravelBuddy.Models.FinderViewModel
 {
     public class FinderViewModel
     {
+        public string Id { get; set; }
         public string Name { get; set; }
         public string city { get; set; }
         public string tags { get; set; }

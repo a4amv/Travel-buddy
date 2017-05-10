@@ -126,7 +126,7 @@ namespace TravelBuddy.Controllers
             entity.PathToImage = model.PathToImage;
 
             //save the image
-            if (image.Length > 0)
+            if (image != null && image.Length > 0)
             {
                 var uploads = Path.Combine(_environment.WebRootPath, "uploads");
                 using (var fileStream = new FileStream(Path.Combine(uploads, image.FileName), FileMode.Create))

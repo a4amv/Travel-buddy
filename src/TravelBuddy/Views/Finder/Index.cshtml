@@ -37,7 +37,7 @@
             <p><i class="glyphicon glyphicon-star"></i></p>
             <p><strong>Nickname:</strong> @Html.DisplayFor(modelItem => item.Name)</p>
             <p><strong>City</strong> @Html.DisplayFor(modelItem => item.city)</p>
-            <a asp-route="detail" asp-all-route-data="@(new Dictionary<string,string> { { "id", "12"}})" class="btn btn-danger">Create new</a>
+            <a asp-action="detail" asp-all-route-data="@(new Dictionary<string,string> { { "id", item.Id}})" class="btn btn-danger">Profile</a>
             @*<p><button type="button" class="btn">Show Profile</button></p>*@
 
         </div>

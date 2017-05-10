@@ -1,0 +1,87 @@
+
+@model IndexViewModel
+@using TravelBuddyDatabase.Enums;
+@{
+    ViewData["Title"] = "User profile";
+}
+
+<h2>@ViewData["Title"]</h2>
+
+<div>
+    <h4>User profile</h4>
+
+        <div class="form-horizontal">
+            <hr />
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <div class="form-group">
+                <div class="col-lg-offset-4 col-md-3 col-sm-5">
+                    <img src="@Url.Content(Model.PathToImage)" alt="Image" class="img-responsive img-rounded" />
+                    
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Name" class="col-sm-4 control-label"></label>
+                <div class="col-md-3 col-sm-5">
+                    <input disabled asp-for="Name" class="form-control" />
+                    
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Surname" class="col-sm-4 control-label"></label>
+                <div class="col-md-3 col-sm-5">
+                    <input disabled asp-for="Surname" class="form-control" />
+                    
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Country" class="col-sm-4 control-label"></label>
+                <div class="col-md-3 col-sm-5">
+                    <input disabled asp-for="Country" class="form-control" />
+                    
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="City" class="col-sm-4 control-label"></label>
+                <div class="col-md-3 col-sm-5">
+                    <input  disabled asp-for="City" class="form-control" />
+                    
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Birthday" class="col-sm-4 control-label"></label>
+                <div class="col-md-3 col-sm-5">
+                    <input disabled asp-for="Birthday" class="form-control" />
+                    
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Gender" class="col-sm-4 control-label"></label>
+                <div class="col-md-3 col-sm-5">
+                    <select  disabled asp-for="Gender" class="form-control" asp-items="Html.GetEnumSelectList<GenderType>()"></select>
+                    
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email_profil" class="col-sm-4 control-label">Email</label>
+                <div class="col-md-3 col-sm-5">
+                    <input disabled asp-for="Email_profil" class="form-control" />
+                    
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Skype" class="col-sm-4 control-label"></label>
+                <div class="col-md-3 col-sm-5">
+                    <input disabled asp-for="Skype" class="form-control" />
+                    
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="AboutMe" class="col-sm-4 control-label">About me</label>
+                <div class="col-md-3 col-sm-5">
+                    <textarea disabled rows="4" cols="50" asp-for="AboutMe" class="form-control"></textarea>
+                    
+                </div>
+            </div>
+          
+        </div>
+    </div>

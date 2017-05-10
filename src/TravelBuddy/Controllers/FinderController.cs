@@ -22,9 +22,13 @@ namespace TravelBuddy.Controllers
    
     public class FinderController : Controller
     {
+        private readonly UserManager<User> _userManager;
+        
+
         protected ApplicationDbContextFactory DbFactory { get; set; }
-        public FinderController(ApplicationDbContextFactory dbFactory)
+        public FinderController(ApplicationDbContextFactory dbFactory, UserManager<User> userManager)
         {
+            _userManager = userManager;
             DbFactory = dbFactory;
         }
         /*  public IActionResult Index()
@@ -53,6 +57,7 @@ namespace TravelBuddy.Controllers
             {
                 var data = db.Users.Select(a => new FinderViewModel()
                 {
+                    Id = a.Id,
                     Name = a.Name,
                     city = a.City,
                     PathToImage = a.PathToImage,
@@ -69,9 +74,28 @@ namespace TravelBuddy.Controllers
             }
         }
 
-        public ActionResult Detail(string userID)
+        public async Task<ActionResult> Detail(string id)
         {
-            return null;
+            var user = await _userManager.FindByIdAsync(id);
+            if (user == null)
+            {
+                return View("Error");
+            }
+            var model = new IndexViewModel
+            {
+                Id = user.Id,
+                
+                Name = user.Name,
+                Surname = user.Surname,
+                Country = user.Country,
+                Birthday = user.Birthday,
+                City = user.City,
+                Skype = user.Skype,
+                Gender = user.Gender,
+                AboutMe = user.AboutMe,
+                PathToImage = user.PathToImage
+            };
+            return View(model);
         }
     }
 }
