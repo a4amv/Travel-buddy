@@ -55,6 +55,7 @@ namespace TravelBuddy.Controllers
                 {
                     Name = a.Name,
                     city = a.City,
+                    PathToImage = a.PathToImage,
                 });
 
 
